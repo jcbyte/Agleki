@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import App from "./components/App";
+import ThemedApp from "./components/ThemedApp";
 
 const appDiv = document.getElementById("app");
-render(<App />, appDiv);
+render(<ThemedApp />, appDiv);
