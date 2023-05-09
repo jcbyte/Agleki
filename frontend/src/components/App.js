@@ -35,12 +35,16 @@ export default function App() {
 					{title}
 				</Typography>
 
-				<Card variant="outlined" sx={{ minWidth: 400, minHeight: 300 }} style={{ margin: "10px" }}>
-					<CardActionArea
-						onClick={() => {
-							setShowingFront((prev) => !prev);
-						}}
-					>
+				<Card
+					variant="outlined"
+					sx={{ minWidth: 400, minHeight: 300 }}
+					style={{ margin: "10px" }}
+					onClick={() => {
+						setShowingFront((prev) => !prev);
+					}}
+				>
+					<CardActionArea>
+						{/* onClick event should be on CardActionArea */}
 						<CardContent>
 							<div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
 								<Latex>{showingFront ? cardContent.front : cardContent.back}</Latex>
