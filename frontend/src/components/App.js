@@ -8,8 +8,10 @@ export default function App() {
 	const [cardContent, setCardContent] = useState({ front: "", back: "" });
 	const [resetCard_FLAG, setResetCard_FLAG] = useState(0);
 
+	const [difficulty, setDifficulty] = useState(1);
+
 	function getNewQuestion() {
-		fetch("/api/getQuestion")
+		fetch(`/api/getQuestion?d=${difficulty}`)
 			.then((res) => res.json())
 			.then((data) => {
 				setCardContent({ front: `$${data.question}$`, back: `$${data.answer}$` });
