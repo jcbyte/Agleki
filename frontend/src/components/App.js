@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Button, IconButton } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { IconButton, LinearProgress } from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
+import ClearIcon from "@mui/icons-material/Clear";
 
 import FlippableCard from "./FlippableCard";
 
@@ -8,14 +9,18 @@ export default function App() {
 	const [cardContent, setCardContent] = useState({ front: "", back: "" });
 	const [resetCard_FLAG, setResetCard_FLAG] = useState(0);
 
-	const [difficulty, setDifficulty] = useState(1);
+	const [difficulty, setDifficulty] = useState(0);
 
-	function getNewQuestion() {
-		fetch(`/api/getQuestion?d=${difficulty}`)
+	function getWeightedDifficulty() {
+		return difficulty / (difficulty + 1);
+	}
+
+	function getNewQuestion(prevSuccess) {
+		fetch(`/api/getQuestion?d=${getWeightedDifficulty()}`)
 			.then((res) => res.json())
 			.then((data) => {
 				setCardContent({ front: `$${data.question}$`, back: `$${data.answer}$` });
-				setResetCard_FLAG(resetCard_FLAG + 1);
+				setResetCard_FLAG((prev) => prev + 1);
 			});
 	}
 
@@ -26,9 +31,23 @@ export default function App() {
 	return (
 		<>
 			<FlippableCard frontContent={cardContent.front} backContent={cardContent.back} resetFront_FLAG={resetCard_FLAG} />
-			<Button variant="outlined" endIcon={<ArrowForwardIcon />} onClick={getNewQuestion}>
-				Next
-			</Button>
+			<IconButton
+				onClick={() => {
+					setDifficulty((prev) => Math.max(prev - 1, 0));
+					getNewQuestion();
+				}}
+			>
+				<ClearIcon />
+			</IconButton>
+			<IconButton
+				onClick={() => {
+					setDifficulty((prev) => prev + 1);
+					getNewQuestion();
+				}}
+			>
+				<CheckIcon />
+			</IconButton>
+			<LinearProgress variant="determinate" value={getWeightedDifficulty() * 100} />
 		</>
 	);
 }

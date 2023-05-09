@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardContent, Typography, CardActionArea } from "@mui/material";
-//import { Latex } from "react-latex";
+import { Card, CardContent, CardActionArea } from "@mui/material";
 
-var Latex = require("react-latex");
+const Latex = require("react-latex");
 
 export default function FlippableCard({ frontContent, backContent, resetFront_FLAG }) {
 	const [showingFront, setShowingFront] = useState(true);
@@ -16,7 +15,7 @@ export default function FlippableCard({ frontContent, backContent, resetFront_FL
 			<Card variant="outlined" sx={{ minWidth: 275 }} style={{ margin: 10 }}>
 				<CardActionArea
 					onClick={() => {
-						setShowingFront(!showingFront);
+						setShowingFront((prev) => !prev);
 					}}
 				>
 					<CardContent>
