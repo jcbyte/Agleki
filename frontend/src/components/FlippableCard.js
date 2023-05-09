@@ -20,7 +20,7 @@ export default function FlippableCard({ frontContent, backContent, resetFront_FL
 					}}
 				>
 					<CardContent>
-						<Latex>{"$" + (showingFront ? frontContent : backContent) + "$"}</Latex>
+						<Latex>{showingFront ? frontContent : backContent}</Latex>
 					</CardContent>
 				</CardActionArea>
 			</Card>
