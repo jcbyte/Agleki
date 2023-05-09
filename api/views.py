@@ -12,13 +12,13 @@ import random
 
 
 class GetQuestion(APIView):
-    def LinExpr2Range(symbol, nRange, sRange, symbolChance):
+    def LinExpr2Range(self, symbol, nRange, sRange, symbolChance):
         if (symbolChance > random.random()):
             return Symbol(symbol) * random.randint(sRange[0], sRange[1]) + random.randint(nRange[0], nRange[1])
         else:
             return random.randint(nRange[0], nRange[1])
         
-    def LinExpr(symbol, range, symbolChance):
+    def LinExpr(self, symbol, range, symbolChance):
         if (symbolChance > random.random()):
             return Symbol(symbol) * random.randint(range[0], range[1]) + random.randint(range[0], range[1])
         else:
