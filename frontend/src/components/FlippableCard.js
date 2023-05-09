@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, Typography, CardActionArea } from "@mui/material";
-import { Latex } from "react-latex";
+//import { Latex } from "react-latex";
+
+var Latex = require("react-latex");
 
 export default function FlippableCard({ frontContent, backContent, resetFront_FLAG }) {
 	const [showingFront, setShowingFront] = useState(true);
@@ -18,7 +20,7 @@ export default function FlippableCard({ frontContent, backContent, resetFront_FL
 					}}
 				>
 					<CardContent>
-						<Typography>{showingFront ? frontContent : backContent}</Typography>
+						<Latex>{"$" + (showingFront ? frontContent : backContent) + "$"}</Latex>
 					</CardContent>
 				</CardActionArea>
 			</Card>

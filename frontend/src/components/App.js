@@ -5,7 +5,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FlippableCard from "./FlippableCard";
 
 export default function App() {
-	const [cardContent, setCardContent] = useState({ front: "q1", back: "a1" });
+	const [cardContent, setCardContent] = useState({ front: "1", back: "2" });
 	const [resetCard_FLAG, setResetCard_FLAG] = useState(0);
 
 	function getNewQuestion() {
