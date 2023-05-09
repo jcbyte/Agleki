@@ -45,7 +45,7 @@ class GetQuestion(APIView):
     def QExpand(self):
         expr1 = self.LinExprSymbols("a", "b", [-3, 3])
         expr2 = self.LinExprSymbols("a", "b", [-3, 3])
-        return latex(expr1 * expr2), latex(expand(expr1 * expr2))
+        return latex(expr1 * expr2), latex(expand(expr1 * expr2)), "Expand"
 
     def QSimplify(self):
         expr = self.SingleExprSymbol("q", [-3, 3], [1, 3]) * (
