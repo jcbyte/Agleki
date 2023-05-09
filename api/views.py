@@ -33,7 +33,8 @@ class GetQuestion(APIView):
         expValues = [num for num in range(expRange[0], expRange[1] + 1) if num != 0]
         return (Symbol(symbol) ** random.choice(expValues)) * random.choice(nValues)
 
-    def QDeterminant(self, p):
+    def QDeterminant(self, dif):
+        p = 0.05 + dif / 2
         M = Matrix(
             [
                 [self.LinExpr("k", [-3, 3], p), self.LinExpr("k", [-3, 3], p)],
@@ -42,9 +43,23 @@ class GetQuestion(APIView):
         )
         return latex(M), latex(M.det()), "Find the Determinant of"
 
-    def QExpand(self):
-        expr1 = self.LinExprSymbols("a", "b", [-3, 3])
-        expr2 = self.LinExprSymbols("a", "b", [-3, 3])
+    def QExpand(self, dif):
+        p = random.random()
+        x1 = x2 = 'a'
+        if (p < dif):
+            x2 = 'b'
+        p = random.random()
+        expr1 = expr2 = None
+        if (p < dif):
+            expr1 = self.LinExprSymbols(x1, x2, [-3, 3])
+        else:
+            expr1 = self.LinExpr(x1, [-3, 3], 1.0)
+        p = random.random()
+        if (p < dif):
+            expr2 = self.LinExprSymbols(x1, x2, [-3, 3])
+        else:
+            expr2 = self.LinExpr(x1, [-3, 3], 1.0) 
+        
         return latex(expr1 * expr2), latex(expand(expr1 * expr2)), "Expand"
 
     def QSimplify(self):
@@ -56,14 +71,14 @@ class GetQuestion(APIView):
         return latex(expr), latex(expand(expr))
 
     def get(self, req, format=None):
-        #difficulty = req.GET["d"]
+        difficulty = float(req.GET["d"])
 
         key = random.random()
         question = answer = title = None
-        if (key <= 0.1):
-            question, answer, title = self.QDeterminant(0.25)
+        if (key <= 0.5):
+            question, answer, title = self.QDeterminant(difficulty)
         elif (key <= 1.0):
-            question, answer, title = self.QExpand()
+            question, answer, title = self.QExpand(difficulty)
 
 
         #question, answer, title = self.QDeterminant(0.15)
