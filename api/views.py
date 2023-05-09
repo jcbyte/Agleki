@@ -32,13 +32,13 @@ class GetQuestion(APIView):
         values = [num for num in range(nRange[0], nRange[1] + 1) if num != 0]
         return (Symbol(symbol) ** random.choice(expRange)) * random.choice(nRange)
 
-    def QDeterminant(self):
+    def QDeterminant(self, p):
         M = Matrix(
             [
-                [self.LinExpr("k", [-3, 3], 0.5), self.LinExpr("k", [-3, 3], 0.5)],
+                [self.LinExpr("k", [-3, 3], p), self.LinExpr("k", [-3, 3], p)],
                 [
                     self.LinExprSymbols("k", "a", [-3, 3]),
-                    self.LinExpr("k", [-3, 3], 0.5),
+                    self.LinExpr("k", [-3, 3], p),
                 ],
             ]
         )
@@ -60,6 +60,6 @@ class GetQuestion(APIView):
     def get(self, req, format=None):
         x = Symbol("x")
 
-        q, a = self.QSimplify()
-        data = {"question": q, "answer": a}
+        question, answer = self.QDeterminant(0.5)
+        data = {"question": question, "answer": answer}
         return JsonResponse(data, status=status.HTTP_200_OK)
