@@ -12,8 +12,7 @@ export default function App() {
 		fetch("/api/getQuestion")
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
-				setCardContent({ front: data.Question, back: data.Answer });
+				setCardContent({ front: data.question, back: data.answer });
 				setResetCard_FLAG(resetCard_FLAG + 1);
 			});
 	}

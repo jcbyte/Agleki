@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, Typography, CardActionArea } from "@mui/material";
+import { Latex } from "react-latex";
 
 export default function FlippableCard({ frontContent, backContent, resetFront_FLAG }) {
 	const [showingFront, setShowingFront] = useState(true);
