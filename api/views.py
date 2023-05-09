@@ -29,20 +29,18 @@ class GetQuestion(APIView):
         ) * random.choice(values)
 
     def SingleExprSymbol(self, symbol, nRange, expRange):
-        values = [num for num in range(nRange[0], nRange[1] + 1) if num != 0]
-        return (Symbol(symbol) ** random.choice(expRange)) * random.choice(nRange)
+        nValues = [num for num in range(nRange[0], nRange[1] + 1) if num != 0]
+        expValues = [num for num in range(expRange[0], expRange[1] + 1) if num != 0]
+        return (Symbol(symbol) ** random.choice(expValues)) * random.choice(nValues)
 
     def QDeterminant(self, p):
         M = Matrix(
             [
                 [self.LinExpr("k", [-3, 3], p), self.LinExpr("k", [-3, 3], p)],
-                [
-                    self.LinExprSymbols("k", "a", [-3, 3]),
-                    self.LinExpr("k", [-3, 3], p),
-                ],
+                [self.LinExpr("k", [-3, 3], p), self.LinExpr("k", [-3, 3], p)],
             ]
         )
-        return latex(M), latex(M.det())
+        return latex(M), latex(M.det()), "Find the Determinant of"
 
     def QExpand(self):
         expr1 = self.LinExprSymbols("a", "b", [-3, 3])
@@ -58,8 +56,16 @@ class GetQuestion(APIView):
         return latex(expr), latex(expand(expr))
 
     def get(self, req, format=None):
-        difficulty = req.GET["d"]
+        #difficulty = req.GET["d"]
 
-        question, answer = self.QDeterminant(0.5)
-        data = {"question": question, "answer": answer}
+        key = random.random()
+        question = answer = title = None
+        if (key <= 0.1):
+            question, answer, title = self.QDeterminant(0.25)
+        elif (key <= 1.0):
+            question, answer, title = self.QExpand()
+
+
+        #question, answer, title = self.QDeterminant(0.15)
+        data = {"title" : title, "question": question, "answer": answer}
         return JsonResponse(data, status=status.HTTP_200_OK)
