@@ -55,7 +55,7 @@ class GetQuestion(APIView):
         ) + self.SingleExprSymbol("q", [-3, 3], [1, 3]) * self.LinExpr(
             "p", [-4, 4], 0.99
         )
-        return expr, latex(expand(expr))
+        return latex(expr), latex(expand(expr))
 
     def get(self, req, format=None):
         x = Symbol("x")
