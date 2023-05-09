@@ -58,7 +58,7 @@ class GetQuestion(APIView):
         return latex(expr), latex(expand(expr))
 
     def get(self, req, format=None):
-        x = Symbol("x")
+        difficulty = req.GET["d"]
 
         q, a = self.QSimplify()
         data = {"question": q, "answer": a}
