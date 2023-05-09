@@ -27,8 +27,8 @@ class GetQuestion(APIView):
     def get(self, req, format=None):
         x = Symbol('x')
         M = Matrix([
-            [LinExpr('k', [-3, 3], 0.5), LinExpr('k', [-3, 3], 0.5)], 
-            [LinExpr('k', [-3, 3], 0.5), LinExpr('k', [-3, 3], 0.5)]
+            [self.LinExpr('k', [-3, 3], 0.5), self.LinExpr('k', [-3, 3], 0.5)], 
+            [self.LinExpr('k', [-3, 3], 0.5), self.LinExpr('k', [-3, 3], 0.5)]
             ])
 
         data = {"Question" : latex(M) , "Answer" : latex(M.det())}
