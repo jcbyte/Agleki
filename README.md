@@ -2,7 +2,7 @@
 
 > Status: This project is no longer being developed or maintained
 
-A web app which generates non-standard maths questions, originally used for revising for A-Level Further Maths.
+Web app to generate non-standard maths questions, originally used for revising for A-Level Further Maths.
 
 ## Questions
 
@@ -12,13 +12,6 @@ It produces questions involving:
 - Expanding double brackets.
 - Simplifying simple equations.
 
-# Tech Stack
+## Licence
 
-**Client:** React, Javascript, Material UI
-
-**Backend:** Django, Python
-
-# Authors
-
-- [@jcbyte](https://github.com/jcbyte)
-- [@Alecfore](https://github.com/Alecfore)
+[Apache License 2.0](LICENSE)
